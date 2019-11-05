@@ -41,7 +41,7 @@ class Slot(object):
         
 def choix_reponse(liste_phrases):
     index_reponse = random.randint(0,len(liste_phrases))
-    result_sentence = liste_phrases[index_reponse]   
+    result_sentence = liste_phrases[index_reponse]
     return result_sentence
     
 def Bonsoir():
@@ -51,7 +51,7 @@ def Au_revoir():
     return choix_reponse(liste_reponses_Au_revoir)
 
 def Ca_va():
-    return choix_reponse(liste_reponses_ca_va)    
+    return choix_reponse(liste_reponses_ca_va)
 
 def Bonjour():
     return choix_reponse(liste_reponses_bonjour)
@@ -113,14 +113,14 @@ def intent_callback(hermes, intent_message):
             state['cassos'] = False
             hermes.publish_end_session(intent_message.session_id, result+"Merci pour cette discussion")
             #SiteMessage.publish_feedback_sound_toggleOn(siteId=default)
-            hermes.publish_feedback_sound_toggleOn(SiteMessage("default"))
+           # hermes.enable_sound_feedback(SiteMessage("default"))
         else:
-            hermes.publish_feedback_sound_toggleOff(SiteMessage("default"))
-            hermes.publish_continue_session(intent_message.session_id, result)
-    if result is None:
-        hermes.publish_end_session(intent_message.session_id, "Merci pour cette discussion")
+            #hermes.disable_sound_feedback(SiteMessage("default"))
+            hermes.publish_continue_session(intent_message.session_id, result,["Loky31:"])
+    #if result is None:
+        #hermes.publish_end_session(intent_message.session_id, "Merci pour cette discussion")
         #SiteMessage.publish_feedback_sound_toggleOn(siteId=default)
-        hermes.publish_feedback_sound_toggleOn(SiteMessage("default"))
+        #hermes.enable_sound_feedback(SiteMessage("default"))
 
 if __name__ == "__main__":
     mqtt_opts = MqttOptions()
