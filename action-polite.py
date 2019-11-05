@@ -58,6 +58,7 @@ def Bonne_nuit():
 
 def Apres_midi():
     return choix_reponse(liste_reponses_apres_midi)
+
 def Presentation():
     return choix_reponse(liste_reponses_Presentation)
     
