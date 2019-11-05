@@ -30,6 +30,14 @@ class SnipsConfigParser(configparser.SafeConfigParser):
             for section in self.sections()
         }
 
+class Slot(object):
+   def __init__(self, data):
+      self.slotName = data['slotName']
+      self.entity = data['entity']
+      self.rawValue = data['rawValue']
+      self.value = data['value']
+      self.range = data['range']        
+        
 def choix_reponse(liste_phrases):
     index_reponse = random.randint(0,len(liste_phrases))
     result_sentence = liste_phrases[index_reponse]   
@@ -61,6 +69,15 @@ def Apres_midi():
 
 def Presentation():
     return choix_reponse(liste_reponses_Presentation)
+
+def parseSlotsToObjects(message):
+   slots = defaultdict(list)
+   data = json.loads(message.payload)
+   if 'slots' in data:
+      for slotData in data['slots']:
+         slot = slotModel.Slot(slotData)
+         slots[slot.slotName].append(slot)
+   return slots
     
 def intent_callback(hermes, intent_message):
     intent_name = intent_message.intent.intent_name.replace("Loky31:", "")
@@ -85,8 +102,11 @@ def intent_callback(hermes, intent_message):
     elif intent_name == "Capacité":     
         result = "Je suis capable de tout un tas de choses allant de piloter les volets le home cinéma les lumières ou vous donner une définition de wikipédia faire une liste de courses et tant d'autres choses"
     elif intent_name == "Presentation": 
-        result = ""+Presentation()+"{}".format(intent_message.slots.prenoms.first().value)
-         
+        noms = parseSlotsToObjects(intent_message)
+        if len(slots) == 1:
+            result = ""+Presentation()+"{}".format(noms[0].value)
+        elif len(slots) == 2: 
+            result = ""+Presentation()+"{} et {}".format(noms[0].value,noms[1].value)
     if result is not None:
         if cassos is True
         state['cassos'] = False
