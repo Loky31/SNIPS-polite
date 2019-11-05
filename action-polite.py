@@ -8,6 +8,7 @@ import requests
 import random
 from hermes_python.hermes import Hermes
 from hermes_python.ffi.utils import MqttOptions
+from hermes_python.ontology.feedback import SiteMessage
 
 liste_reponses_bonsoir = ["bonsoir, cordialement", "bonsoir", "bien le bonsoir", "oh bonsoir", "bonsoir très cher"]
 liste_reponses_Au_revoir = ["Au revoir", "Bonne journée", "Bon courage pour le travail", "Ne rentrez pas trop tard", "Au revoir très cher", "La journée sera longue sans vous", "Faites attention sur la route et passez une bonne journée"]
@@ -93,33 +94,37 @@ def intent_callback(hermes, intent_message):
     elif intent_name == "Appetit":
         result =  Appetit()
     elif intent_name == "Bonne_nuit":
-        result = Bonne_nuit()       
+        result = Bonne_nuit()
     elif intent_name == "Après_midi":
         result = Apres_midi()
     elif intent_name == "Au_revoir":
         state['cassos'] = True
         result = Au_revoir()
-    elif intent_name == "Capacité":     
+    elif intent_name == "Capacité": 
         result = "Je suis capable de tout un tas de choses allant de piloter les volets le home cinéma les lumières ou vous donner une définition de wikipédia faire une liste de courses et tant d'autres choses"
-    elif intent_name == "Presentation": 
+    elif intent_name == "Presentation":
         noms = parseSlotsToObjects(intent_message)
         if len(slots) == 1:
             result = ""+Presentation()+"{}".format(noms[0].value)
         elif len(slots) == 2: 
             result = ""+Presentation()+"{} et {}".format(noms[0].value,noms[1].value)
     if result is not None:
-        if cassos == True
-        state['cassos'] = False
-        hermes.publish_end_session(intent_message.session_id, result+"Merci pour cette discussion")
-        hermes.publish_feedback_sound_toggleOn("siteId": "default")
-        elif cassos == False
-        hermes.publish_feedback_sound_toggleOff("siteId": "default")
-        hermes.publish_continue_session(intent_message.session_id, result)
+        if state['cassos']:
+            state['cassos'] = False
+            hermes.publish_end_session(intent_message.session_id, result+"Merci pour cette discussion")
+            #SiteMessage.publish_feedback_sound_toggleOn(siteId=default)
+            hermes.publish_feedback_sound_toggleOn(SiteMessage("default"))
+        else:
+            hermes.publish_feedback_sound_toggleOff(SiteMessage("default"))
+            hermes.publish_continue_session(intent_message.session_id, result)
     if result is None:
         hermes.publish_end_session(intent_message.session_id, "Merci pour cette discussion")
-        hermes.publish_feedback_sound_toggleOn("siteId": "default")
+        #SiteMessage.publish_feedback_sound_toggleOn(siteId=default)
+        hermes.publish_feedback_sound_toggleOn(SiteMessage("default"))
 
 if __name__ == "__main__":
     mqtt_opts = MqttOptions()
     with Hermes(mqtt_options=mqtt_opts) as h:
         h.subscribe_intents(intent_callback).start()
+        #h.disable_sound_feedback(SiteMessage("default"))
+        #h.subscribe_enable_sound_feedback(SiteMessage("default"))
