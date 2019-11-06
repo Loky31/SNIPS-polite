@@ -39,37 +39,35 @@ class Slot(object):
       self.value = data['value']
       self.range = data['range']        
         
-def choix_reponse(liste_phrases):
-    index_reponse = random.randint(0,len(liste_phrases))
-    result_sentence = liste_phrases[index_reponse]
-    return result_sentence
+def answerChoice(answerList):
+    return random.choice(answerList)
     
 def Bonsoir():
-    return choix_reponse(liste_reponses_bonsoir)
+    return answerChoice(liste_reponses_bonsoir)
 
 def Au_revoir():
-    return choix_reponse(liste_reponses_Au_revoir)
+    return answerChoice(liste_reponses_Au_revoir)
 
 def Ca_va():
-    return choix_reponse(liste_reponses_ca_va)
+    return answerChoice(liste_reponses_ca_va)
 
 def Bonjour():
-    return choix_reponse(liste_reponses_bonjour)
+    return answerChoice(liste_reponses_bonjour)
 
 def Merci():
-    return choix_reponse(liste_reponses_merci)
+    return answerChoice(liste_reponses_merci)
 
 def Appetit():
-    return choix_reponse(liste_reponses_appetit)
+    return answerChoice(liste_reponses_appetit)
 
 def Bonne_nuit():
     return choix_reponse(liste_reponses_bonne_nuit)
 
 def Apres_midi():
-    return choix_reponse(liste_reponses_apres_midi)
+    return answerChoice(liste_reponses_apres_midi)
 
 def Presentation():
-    return choix_reponse(liste_reponses_Presentation)
+    return answerChoice(liste_reponses_Presentation)
 
 def parseSlotsToObjects(message):
    slots = defaultdict(list)
