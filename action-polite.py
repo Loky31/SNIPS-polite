@@ -11,14 +11,14 @@ from hermes_python.ffi.utils import MqttOptions
 from hermes_python.ontology.feedback import SiteMessage
 
 liste_reponses_bonsoir = ["bonsoir, cordialement", "bonsoir", "bien le bonsoir", "oh bonsoir", "bonsoir très cher"]
-liste_reponses_Au_revoir = ["Au revoir", "Bonne journée", "Bon courage pour le travail", "Ne rentrez pas trop tard", "Au revoir très cher", "La journée sera longue sans vous", "Faites attention sur la route et passez une bonne journée"]
-liste_reponses_ca_va = ["En pleine forme aujourd'hui et vous?", "On fait aller", "Dur réveil je vais prendre un café", "prèt a concquerir le monde, ou du moins a le piloter au moins", "petite forme espéront que ca aille mieux plus tard", "je suis impatient de vous rendre service","plutot bien aujourd'hui, et vous?"]
-liste_reponses_bonjour = ["Bonjour", "Salut", "Salut j'espère que ça va", "oh bonjour", "hey salut", "bien le bonjour", "Bonjour très cher", "Je vous souhaite le bonjour","salutations"]
-liste_reponses_merci = ["de rien", "avec plaisir", "a votre service", "je ne fait que mon devoir", "il n'y a vraiment pas de quoi", "j'aime me rendre utile", "je reste a votre disposition","je suis la pour ça", "tout le plaisir est pour moi","enfin voyons vos desirs sont des ordres"]
-liste_reponses_appetit = ["bon appétit", "Quoi de bon au menu?", "Soyez raisonable sur le menu bon appetit", "il faut macher lentement pour mieux digérer", "régalez vous"]
+liste_reponses_au_revoir = ["Au revoir", "Bonne journée", "Bon courage pour le travail", "Ne rentrez pas trop tard", "Au revoir très cher", "La journée sera longue sans vous", "Faites attention sur la route et passez une bonne journée"]
+liste_reponses_ca_va = ["En pleine forme aujourd'hui et vous?", "On fait aller", "Dur réveil je vais prendre un café", "prêt a conquérir le monde, ou du moins a le piloter au moins", "petite forme espérons que ca aille mieux plus tard", "je suis impatient de vous rendre service", "plutôt bien aujourd'hui, et vous?"]
+liste_reponses_bonjour = ["Bonjour", "Salut", "Salut j'espère que ça va", "oh bonjour", "hey salut", "bien le bonjour", "Bonjour très cher", "Je vous souhaite le bonjour", "salutations"]
+liste_reponses_merci = ["de rien", "avec plaisir", "a votre service", "je ne fais que mon devoir", "il n'y a vraiment pas de quoi", "j'aime me rendre utile", "je reste à votre disposition", "je suis là pour ça", "tout le plaisir est pour moi", "enfin voyons vos désirs sont des ordres"]
+liste_reponses_appetit = ["bon appétit", "Quoi de bon au menu?", "Soyez raisonnable sur le menu bon appétit", "il faut mâcher lentement pour mieux digérer", "régalez-vous"]
 liste_reponses_bonne_nuit = ["A demain, faites de beaux rêves.", "Moi aussi je vais dormir, je suis crevée.", "Bonne nuit !", "Dormez bien, à demain !", "OK. Moi je vais regarder un bon film à la télé.", "ok bonne nuit.", "à demain !", "bonne nuit très cher.", "je crois que Morphée m'attend aussi, à demain"]
-liste_reponses_apres_midi = ["bon après midi", "une petite sieste?", "bonne digestion", "bon après midi très cher","profitez de votre après midi"]
-liste_reponses_Presentation = ["Je suis ravi de vous rencontrer", "Mes homages", "Quel plaisir de faire votre connaissance"]
+liste_reponses_apres_midi = ["bon après-midi", "une petite sieste?", "bonne digestion", "bon après-midi très cher", "profitez de votre après midi"]
+liste_reponses_presentation = ["Je suis ravi de vous rencontrer", "Mes hommages", "Quel plaisir de faire votre connaissance"]
 state = {'cassos': False}
 
 class SnipsConfigParser(configparser.SafeConfigParser):
@@ -46,7 +46,7 @@ def Bonsoir():
     return answerChoice(liste_reponses_bonsoir)
 
 def Au_revoir():
-    return answerChoice(liste_reponses_Au_revoir)
+    return answerChoice(liste_reponses_au_revoir)
 
 def Ca_va():
     return answerChoice(liste_reponses_ca_va)
@@ -67,7 +67,7 @@ def Apres_midi():
     return answerChoice(liste_reponses_apres_midi)
 
 def Presentation():
-    return answerChoice(liste_reponses_Presentation)
+    return answerChoice(liste_reponses_presentation)
 
 def parseSlotsToObjects(message):
    slots = defaultdict(list)
