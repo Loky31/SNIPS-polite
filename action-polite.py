@@ -81,6 +81,7 @@ def parseSlotsToObjects(message):
 def intent_callback(hermes, intent_message):
     intent_name = intent_message.intent.intent_name.replace("Loky31:", "")
     result = None
+    print("{}".format(intent_name))
     if intent_name == "Bonsoir":
         result = Bonsoir()
     elif intent_name == "Ca_va":
@@ -103,8 +104,10 @@ def intent_callback(hermes, intent_message):
     elif intent_name == "Presentation":
         noms = parseSlotsToObjects(intent_message)
         if len(slots) == 1:
+            print("1 slot de nom trouvé")
             result = ""+Presentation()+"{}".format(noms[0].value)
         elif len(slots) == 2: 
+            print("2 slots de nom trouvé")
             result = ""+Presentation()+"{} et {}".format(noms[0].value,noms[1].value)
     if result is not None:
         if not state['cassos']:
