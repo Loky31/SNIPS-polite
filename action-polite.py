@@ -108,10 +108,12 @@ def intent_callback(hermes, intent_message):
             result = ""+Presentation()+"{} et {}".format(noms[0].value,noms[1].value)
     if result is not None:
         if not state['cassos']:
-            hermes.publish_continue_session(intent_message.session_id, result,["Loky31:"])
+            print("{}".format(result))
+            hermes.publish_continue_session(intent_message.session_id,result,["Loky31:"])
             #SiteMessage.publish_feedback_sound_toggleOn(siteId=default)
            # hermes.enable_sound_feedback(SiteMessage("default"))
         else:
+            print("result est vide")
             state['cassos'] = False
             hermes.publish_end_session(intent_message.session_id, result+"Merci pour cette discussion")
             #hermes.disable_sound_feedback(SiteMessage("default"))
