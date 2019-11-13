@@ -116,7 +116,7 @@ def intent_callback(hermes, intent_message):
             #SiteMessage.publish_feedback_sound_toggleOn(siteId=default)
            # hermes.enable_sound_feedback(SiteMessage("default"))
         else:
-            print("result est vide")
+            print("result est vide :(")
             state['cassos'] = False
             hermes.publish_end_session(intent_message.session_id, result+"Merci pour cette discussion")
             #hermes.disable_sound_feedback(SiteMessage("default"))
