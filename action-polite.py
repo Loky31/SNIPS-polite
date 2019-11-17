@@ -22,6 +22,7 @@ liste_reponses_apres_midi = ["bon après-midi", "une petite sieste?", "bonne dig
 liste_reponses_presentation = ["Je suis ravi de vous rencontrer", "Mes hommages", "Quel plaisir de faire votre connaissance"]
 liste_reponses_capacite = ["Je suis très puissant grace au coté obscur de la force","mes pouvoir sont infini pauvre humain!","Nul besoin de me venter","Vous ne pouvez que l'imaginer"]
 state = {'cassos': False}
+status = {'thanks': False}
 
 class SnipsConfigParser(configparser.SafeConfigParser):
     def to_dict(self):
@@ -94,17 +95,19 @@ def intent_callback(hermes, intent_message):
     elif intent_name == "Bonjour":
         result = Bonjour()
     elif intent_name == "Merci":
+        print("thanks activé")
+        status['thanks'] = True
         result = Merci()
     elif intent_name == "Appetit":
         result = Appetit()
     elif intent_name == "Bonne_nuit":
         result = Bonne_nuit()
-    elif intent_name == "Après_midi":
+    elif intent_name == "Apres_midi":
         result = Apres_midi()
     elif intent_name == "Au_revoir":
         state['cassos'] = True
         result = Au_revoir()
-    elif intent_name == "Capacité": 
+    elif intent_name == "Capacite": 
         #result = "Je suis capable de tout un tas de choses allant de piloter les volets le home cinéma les lumières ou vous donner une définition de wikipédia faire une liste de courses et tant d'autres choses"
         result = Capacite()
     elif intent_name == "Presentation":
@@ -116,17 +119,20 @@ def intent_callback(hermes, intent_message):
             print("2 slots de nom trouvé")
             result = ""+Presentation()+"{} et {}".format(noms[0].value,noms[1].value)
     if result is not None:
-        if not state['cassos']:
-            print("{}".format(result))
-            hermes.publish_continue_session(intent_message.session_id,result,["Loky31:"])
-            #SiteMessage.publish_feedback_sound_toggleOn(siteId=default)
-           # hermes.enable_sound_feedback(SiteMessage("default"))
+        if not status['thanks']:
+            if not state['cassos']:
+                print("{}".format(result))
+                hermes.publish_continue_session(intent_message.session_id,result,["Loky31:Bonsoir","Loky31:Ca_va","Loky31:Bonjour","Loky31:Merci","Loky31:Appetit","Loky31:Bonne_nuit","Loky31:Apres_midi","Loky31:Au_revoir","Loky31:Capacite","Loky31:Presentation"])
+                #SiteMessage.publish_feedback_sound_toggleOn(siteId=default)
+           #     hermes.enable_sound_feedback(SiteMessage("default"))
+            else:
+                print("cassos activé")
+                state['cassos'] = False
+                hermes.publish_end_session(intent_message.session_id, result+"Merci pour cette discussion")
+                #hermes.disable_sound_feedback(SiteMessage("default"))
         else:
-            print("result est vide :(")
-            state['cassos'] = False
-            hermes.publish_end_session(intent_message.session_id, result+"Merci pour cette discussion")
-            #hermes.disable_sound_feedback(SiteMessage("default"))
-            
+            status['thanks'] = False
+            hermes.publish_end_session(intent_message.session_id, result) 
     #if result is None:
         #hermes.publish_end_session(intent_message.session_id, "Merci pour cette discussion")
         #SiteMessage.publish_feedback_sound_toggleOn(siteId=default)
