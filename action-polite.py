@@ -12,7 +12,7 @@ from hermes_python.ontology.feedback import SiteMessage
 from collections import defaultdict
 
 liste_reponses_bonsoir = ["bonsoir, cordialement", "bonsoir", "bien le bonsoir", "oh bonsoir", "bonsoir très cher"]
-liste_reponses_au_revoir = ["que la force soit avec vous","Au revoir", "Bonne journée", "Bon courage pour le travail", "Ne rentrez pas trop tard", "Au revoir très cher", "La journée sera longue sans vous", "Faites attention sur la route et passez une bonne journée"]
+liste_reponses_au_revoir = ["bye bye","que la force soit avec vous","Au revoir", "Bonne journée", "Ne rentrez pas trop tard", "Au revoir très cher", "La journée sera longue sans vous", "Faites attention à vous et passez une bonne journée"]
 liste_reponses_ca_va = ["En pleine forme aujourd'hui et vous?", "On fait aller", "Dur réveil je vais prendre un café", "prêt a conquérir le monde, ou du moins a le piloter", "petite forme espérons que ca aille mieux plus tard", "je suis impatient de vous rendre service", "plutôt bien aujourd'hui, et vous?"]
 liste_reponses_bonjour = ["Bonjour", "Salut", "Coucou", "oh bonjour", "hey salut", "bien le bonjour", "Bonjour très cher", "Je vous souhaite le bonjour", "salutations"]
 liste_reponses_merci = ["me remercier point vous n'avez besoin","de rien", "avec plaisir", "a votre service", "je ne fais que mon devoir", "il n'y a vraiment pas de quoi", "j'aime me rendre utile", "je reste à votre disposition", "je suis là pour ça", "tout le plaisir est pour moi", "enfin voyons vos désirs sont des ordres"]
