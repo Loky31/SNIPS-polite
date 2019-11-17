@@ -9,6 +9,7 @@ import random
 from hermes_python.hermes import Hermes
 from hermes_python.ffi.utils import MqttOptions
 from hermes_python.ontology.feedback import SiteMessage
+from collections import defaultdict
 
 liste_reponses_bonsoir = ["bonsoir, cordialement", "bonsoir", "bien le bonsoir", "oh bonsoir", "bonsoir très cher"]
 liste_reponses_au_revoir = ["Au revoir", "Bonne journée", "Bon courage pour le travail", "Ne rentrez pas trop tard", "Au revoir très cher", "La journée sera longue sans vous", "Faites attention sur la route et passez une bonne journée"]
@@ -19,6 +20,7 @@ liste_reponses_appetit = ["bon appétit", "Quoi de bon au menu?", "Soyez raisonn
 liste_reponses_bonne_nuit = ["A demain, faites de beaux rêves.", "Moi aussi je vais dormir, je suis crevée.", "Bonne nuit !", "Dormez bien, à demain !", "OK. Moi je vais regarder un bon film à la télé.", "ok bonne nuit.", "à demain !", "bonne nuit très cher.", "je crois que Morphée m'attend aussi, à demain"]
 liste_reponses_apres_midi = ["bon après-midi", "une petite sieste?", "bonne digestion", "bon après-midi très cher", "profitez de votre après midi"]
 liste_reponses_presentation = ["Je suis ravi de vous rencontrer", "Mes hommages", "Quel plaisir de faire votre connaissance"]
+liste_reponses_capacite = ["Je suis très puissant grace au coté obscur de la force","mes pouvoir sont infini pauvre humain!","Nul besoin de me venter","Vous ne pouvez que l'imaginer"]
 state = {'cassos': False}
 
 class SnipsConfigParser(configparser.SafeConfigParser):
@@ -69,6 +71,9 @@ def Apres_midi():
 def Presentation():
     return answerChoice(liste_reponses_presentation)
 
+def Capacite():
+    return answerChoice(liste_reponses_capacite)
+
 def parseSlotsToObjects(message):
    slots = defaultdict(list)
    data = json.loads(message.payload)
@@ -89,9 +94,9 @@ def intent_callback(hermes, intent_message):
     elif intent_name == "Bonjour":
         result = Bonjour()
     elif intent_name == "Merci":
-        result =Merci()
+        result = Merci()
     elif intent_name == "Appetit":
-        result =  Appetit()
+        result = Appetit()
     elif intent_name == "Bonne_nuit":
         result = Bonne_nuit()
     elif intent_name == "Après_midi":
@@ -100,7 +105,8 @@ def intent_callback(hermes, intent_message):
         state['cassos'] = True
         result = Au_revoir()
     elif intent_name == "Capacité": 
-        result = "Je suis capable de tout un tas de choses allant de piloter les volets le home cinéma les lumières ou vous donner une définition de wikipédia faire une liste de courses et tant d'autres choses"
+        #result = "Je suis capable de tout un tas de choses allant de piloter les volets le home cinéma les lumières ou vous donner une définition de wikipédia faire une liste de courses et tant d'autres choses"
+        result = Capacite()
     elif intent_name == "Presentation":
         noms = parseSlotsToObjects(intent_message)
         if len(slots) == 1:
