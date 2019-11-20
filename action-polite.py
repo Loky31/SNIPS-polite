@@ -111,7 +111,7 @@ def intent_callback(hermes, intent_message):
         #result = "Je suis capable de tout un tas de choses allant de piloter les volets le home cinéma les lumières ou vous donner une définition de wikipédia faire une liste de courses et tant d'autres choses"
         result = Capacite()
     elif intent_name == "Presentation":
-        noms = parseSlotsToObjects(intent_message.intent)
+        noms = parseSlotsToObjects(intent_message)
         if len(slots) == 1:
             print("1 slot de nom trouvé")
             result = ""+Presentation()+"{}".format(noms[0].value)
