@@ -102,13 +102,13 @@ def intent_callback(hermes, intent_message):
         #result = "Je suis capable de tout un tas de choses allant de piloter les volets le home cinéma les lumières ou vous donner une définition de wikipédia faire une liste de courses et tant d'autres choses"
         result = Capacite()
     elif intent_name == "Presentation":
-        slot_values = intent_message.slots.Prenoms.all().value
+        slot_values = intent_message.slots.Prenoms.all()
         if len(intent_message.slots["Prenoms"])== 1:
             print("1 slot de nom trouvé")
-            result = ""+Presentation()+"{}".format(slot_values[0].value)
+            result = ""+Presentation() +" {}".format(slot_values[0].value)
         elif len(intent_message.slots["Prenoms"])== 2: 
             print("2 slots de nom trouvé")
-            result = ""+Presentation()+"{} et {}".format(slot_values[0].value,slot_values[1].value)
+            result = ""+Presentation() +" {} et {} ".format(slot_values[0].value,slot_values[1].value)
     if result is not None:
         if not status['thanks']:
             if not state['cassos']:
@@ -119,7 +119,7 @@ def intent_callback(hermes, intent_message):
             else:
                 print("cassos activé")
                 state['cassos'] = False
-                hermes.publish_end_session(intent_message.session_id, result+"Merci pour cette discussion")
+                hermes.publish_end_session(intent_message.session_id, result+" Merci pour cette discussion")
                 #hermes.disable_sound_feedback(SiteMessage("default"))
         else:
             status['thanks'] = False
