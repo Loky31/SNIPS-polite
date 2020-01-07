@@ -19,7 +19,7 @@ liste_reponses_merci = ["me remercier point vous n'avez besoin","de rien", "avec
 liste_reponses_appetit = ["le gras c'est la vie","bon appétit", "Quoi de bon au menu?", "Soyez raisonnable sur le menu bon appétit", "il faut mâcher lentement pour mieux digérer", "régalez-vous"]
 liste_reponses_bonne_nuit = ["A demain, faites de beaux rêves.", "Moi aussi je vais dormir, je suis crevée.", "Bonne nuit !", "Dormez bien, à demain !", "OK. Moi je vais regarder un bon film à la télé.", "ok bonne nuit.", "à demain !", "bonne nuit très cher.", "je crois que Morphée m'attend aussi, à demain"]
 liste_reponses_apres_midi = ["bon après-midi", "une petite sieste?", "bonne digestion", "bon après-midi très cher", "profitez de votre après midi"]
-liste_reponses_presentation = ["Je suis ravi de vous rencontrer", "Mes hommages", "Quel plaisir de faire votre connaissance"]
+liste_reponses_presentation = ["Je suis ravi de vous rencontrer", "Mes hommages", "Quel plaisir de faire votre connaissance","Tiens de nouveaux copains, enchanté","Moi c'est Jarvis et je suis enchanté de vous rencontrer"]
 liste_reponses_capacite = ["Tout et un peu plus","Ma formation terminé j'ai, les pouvoirs du jédaï sont miens","Je suis très puissant grace au coté obscur de la force","mes pouvoir sont infini pauvre humain!","Nul besoin de me venter","Vous ne pouvez que l'imaginer"]
 state = {'cassos': False}
 status = {'thanks': False}
@@ -119,7 +119,7 @@ def intent_callback(hermes, intent_message):
             else:
                 print("cassos activé")
                 state['cassos'] = False
-                hermes.publish_end_session(intent_message.session_id, result+" Merci pour cette discussion")
+                hermes.publish_end_session(intent_message.session_id, result+" et merci pour cette discussion")
                 #hermes.disable_sound_feedback(SiteMessage("default"))
         else:
             status['thanks'] = False
