@@ -74,15 +74,6 @@ def Presentation():
 
 def Capacite():
     return answerChoice(liste_reponses_capacite)
-
-def parseSlotsToObjects(message):
-   slots = defaultdict(list)
-   data = json.loads(message.payload)
-   if 'slots' in data:
-      for slotData in data['slots']:
-         slot = slotModel.Slot(slotData)
-         slots[slot.slotName].append(slot)
-   return slots
     
 def intent_callback(hermes, intent_message):
     intent_name = intent_message.intent.intent_name.replace("Loky31:", "")
@@ -111,13 +102,13 @@ def intent_callback(hermes, intent_message):
         #result = "Je suis capable de tout un tas de choses allant de piloter les volets le home cinéma les lumières ou vous donner une définition de wikipédia faire une liste de courses et tant d'autres choses"
         result = Capacite()
     elif intent_name == "Presentation":
-        noms = parseSlotsToObjects(intent_message)
-        if len(slots) == 1:
+        slot_values = intent_message.slots.Prenoms.all().value
+        if len(intent_message.slots["Prenoms"])== 1:
             print("1 slot de nom trouvé")
-            result = ""+Presentation()+"{}".format(noms[0].value)
-        elif len(slots) == 2: 
+            result = ""+Presentation()+"{}".format(slot_values[0].value)
+        elif len(intent_message.slots["Prenoms"])== 2: 
             print("2 slots de nom trouvé")
-            result = ""+Presentation()+"{} et {}".format(noms[0].value,noms[1].value)
+            result = ""+Presentation()+"{} et {}".format(slot_values[0].value,slot_values[1].value)
     if result is not None:
         if not status['thanks']:
             if not state['cassos']:
